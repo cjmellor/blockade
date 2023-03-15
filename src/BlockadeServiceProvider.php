@@ -2,6 +2,7 @@
 
 namespace Cjmellor\Blockade;
 
+use Cjmellor\Blockade\Console\Commands\UnblockUserCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -16,6 +17,8 @@ class BlockadeServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('blockade')
+            ->hasCommand(UnblockUserCommand::class)
+            ->hasConfigFile()
             ->hasMigration('create_blocks_table');
     }
 }
