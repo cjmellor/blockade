@@ -26,7 +26,8 @@
         "orchestra/testbench": "^7.0|^8.0",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-laravel": "^1.1",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "spatie/pest-plugin-test-time": "^1.1"
     },
     "autoload": {
         "psr-4": {
