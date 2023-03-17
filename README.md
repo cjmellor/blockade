@@ -1,8 +1,10 @@
 # Allow a User Model to Block Another User Model
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/cjmellor/blockade.svg?style=flat-square)](https://packagist.org/packages/cjmellor/blockade)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/cjmellor/blockade/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/cjmellor/blockade/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/cjmellor/blockade.svg?style=flat-square)](https://packagist.org/packages/cjmellor/blockade)
+![Packagist Version](https://img.shields.io/packagist/v/cjmellor/blockade?color=rgb%2856%20189%20248%29&label=release&style=for-the-badge)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/cjmellor/blockade/run-tests.yml?branch=main&label=tests&style=for-the-badge&color=rgb%28134%20239%20128%29)](https://github.com/cjmellor/blockade/actions?query=workflow%3Arun-tests+branch%3Amain)
+![Packagist Downloads](https://img.shields.io/packagist/dt/cjmellor/blockade?color=rgb%28249%20115%2022%29&style=for-the-badge)
+![Packagist PHP Version](https://img.shields.io/packagist/dependency-v/cjmellor/blockade/php?color=rgb%28165%20180%20252%29&logo=php&logoColor=rgb%28165%20180%20252%29&style=for-the-badge)
+![Laravel Version](https://img.shields.io/badge/laravel-^9.0-rgb(235%2068%2050)?style=for-the-badge&logo=laravel)
 
 Allow a User to block another User. Blocking a User will prevent the blocker from seeing the blockees data.
 
