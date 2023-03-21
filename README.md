@@ -148,6 +148,15 @@ $schedule->command('unblock:expired')->everyMinute();
 
 > **Note:**
 > Don't forget to add the command to the `App\Console\Kernel` `schedule()` method.
+> 
+ 
+### Events
+
+When a User is blocked, a `UserBlocked` event is fired.
+
+When a User is unblocked, a `UserUnblocked` event is fired.
+
+The `User` Model of the blocked or unblocked User is passed to the event so you can listen for these events and perform further actions.
 
 ## Testing
 

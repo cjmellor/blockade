@@ -1,10 +1,13 @@
 <?php
 
+use Cjmellor\Blockade\Events\UserBlocked;
+use Cjmellor\Blockade\Events\UserUnblocked;
 use Cjmellor\Blockade\Exceptions\CannotBlockSelfException;
 use Cjmellor\Blockade\Exceptions\HasNotBlockedUserException;
 use Cjmellor\Blockade\Exceptions\UserAlreadyBlockedException;
 use Cjmellor\Blockade\Tests\TestModel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+
 use function Spatie\PestPluginTestTime\testTime;
 
 uses(RefreshDatabase::class);
@@ -110,4 +113,21 @@ test(description: 'the unblock:expired artisan command runs correctly', closure:
         ->assertExitCode(exitCode: 0);
 
     expect($this->modelOne->blockedUsers()->get())->toHaveCount(count: 0);
+});
+
+test(description: 'An event is fired when a User is blocked', closure: function () {
+    Event::fake();
+
+    $this->modelOne->block($this->modelTwo);
+
+    Event::assertDispatched(UserBlocked::class, fn (UserBlocked $event): bool => $event->user->id === $this->modelTwo->id);
+});
+
+test(description: 'An event is fired when a User is unblocked', closure: function () {
+    Event::fake();
+
+    $this->modelOne->block($this->modelTwo);
+    $this->modelOne->unblock($this->modelTwo);
+
+    Event::assertDispatched(UserUnblocked::class, fn (UserUnblocked $event): bool => $event->user->id === $this->modelTwo->id);
 });
