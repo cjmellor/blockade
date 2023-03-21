@@ -3,6 +3,8 @@
 namespace Cjmellor\Blockade\Concerns;
 
 use Carbon\Carbon;
+use Cjmellor\Blockade\Events\UserBlocked;
+use Cjmellor\Blockade\Events\UserUnblocked;
 use Cjmellor\Blockade\Exceptions\CannotBlockSelfException;
 use Cjmellor\Blockade\Exceptions\HasNotBlockedUserException;
 use Cjmellor\Blockade\Exceptions\UserAlreadyBlockedException;
@@ -48,6 +50,8 @@ trait CanBlock
         $this->blockedUsers()
             ->attach(id: $this->modelInstance($user), attributes: $expiresAt !== null ? ['expires_at' => $expiresAt] : []);
 
+        event(new UserBlocked($this->blockedUsers()->whereId($this->modelInstance($user)->id)->first()));
+
         return true;
     }
 
@@ -62,6 +66,8 @@ trait CanBlock
             condition: ! $this->blockedUsers()->whereId($this->modelInstance($user)->id)->exists(),
             exception: HasNotBlockedUserException::class,
         );
+
+        event(new UserUnblocked($this->blockedUsers()->whereId($this->modelInstance($user)->id)->first()));
 
         $this->blockedUsers()->detach(ids: $this->modelInstance($user));
 
