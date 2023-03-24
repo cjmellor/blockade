@@ -2,6 +2,14 @@
 
 All notable changes to `blockade` will be documented in this file.
 
+## v1.1.1 - 2023-03-24
+
+### What's Changed
+
+- refactor: Simplify user blocking event handling by @cjmellor in https://github.com/cjmellor/blockade/pull/3
+
+**Full Changelog**: https://github.com/cjmellor/blockade/compare/v1.1.0...v1.1.1
+
 ## v1.1.0 - 2023-03-21
 
 ### What's Changed
