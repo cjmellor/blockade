@@ -50,7 +50,7 @@ trait CanBlock
         $this->blockedUsers()
             ->attach(id: $this->modelInstance($user), attributes: $expiresAt !== null ? ['expires_at' => $expiresAt] : []);
 
-        event(new UserBlocked($this->blockedUsers()->whereId($this->modelInstance($user)->id)->first()));
+        event(new UserBlocked($this->modelInstance($user)));
 
         return true;
     }
@@ -67,7 +67,7 @@ trait CanBlock
             exception: HasNotBlockedUserException::class,
         );
 
-        event(new UserUnblocked($this->blockedUsers()->whereId($this->modelInstance($user)->id)->first()));
+        event(new UserUnblocked($this->modelInstance($user)));
 
         $this->blockedUsers()->detach(ids: $this->modelInstance($user));
 

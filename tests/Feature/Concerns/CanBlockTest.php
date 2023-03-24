@@ -120,7 +120,7 @@ test(description: 'An event is fired when a User is blocked', closure: function 
 
     $this->modelOne->block($this->modelTwo);
 
-    Event::assertDispatched(UserBlocked::class, fn (UserBlocked $event): bool => $event->user->id === $this->modelTwo->id);
+    Event::assertDispatched(UserBlocked::class, fn (UserBlocked $event): bool => $event->blockedUser->id === $this->modelTwo->id);
 });
 
 test(description: 'An event is fired when a User is unblocked', closure: function () {
