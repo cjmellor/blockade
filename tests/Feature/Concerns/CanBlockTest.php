@@ -6,7 +6,6 @@ use Cjmellor\Blockade\Exceptions\CannotBlockSelfException;
 use Cjmellor\Blockade\Exceptions\HasNotBlockedUserException;
 use Cjmellor\Blockade\Exceptions\UserAlreadyBlockedException;
 use Cjmellor\Blockade\Tests\Fixtures\User;
-
 use Illuminate\Support\Facades\Event;
 
 use function Spatie\PestPluginTestTime\testTime;
