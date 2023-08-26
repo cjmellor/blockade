@@ -83,7 +83,7 @@ it('removes the blocked user after the expiry has passed', closure: function () 
         'blocked_id' => $this->modelTwo->id,
     ]);
 
-    testTime()->addSeconds(value: 35);
+    testTime()->addSeconds(35);
 
     User::withWhereHas('blockedUsers', fn ($query) => $query->where('expires_at', '<', now()))
         ->get()
@@ -105,7 +105,7 @@ test(description: 'the unblock:expired artisan command runs correctly', closure:
     $this->modelOne->block($this->modelTwo, expiresAt: now()->addSeconds(value: 30));
     expect($this->modelOne->blockedUsers)->toHaveCount(count: 1);
 
-    testTime()->addSeconds(value: 35);
+    testTime()->addSeconds(35);
 
     $this->artisan(command: 'unblock:expired')
         ->expectsOutputToContain(string: 'Unblocked expired users')
