@@ -4,9 +4,9 @@ namespace Cjmellor\Blockade\Concerns;
 
 use Cjmellor\Blockade\Scopes\ExcludeBlockedModelsScope;
 
-trait ExcludeBlockedModels
+trait HasBlocked
 {
-    protected static function bootExcludeBlockedModels(): void
+    protected static function bootHasBlocked(): void
     {
         if (auth()->hasUser()) {
             static::addGlobalScope(scope: new ExcludeBlockedModelsScope());

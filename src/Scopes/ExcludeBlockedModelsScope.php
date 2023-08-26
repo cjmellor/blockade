@@ -10,8 +10,12 @@ class ExcludeBlockedModelsScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
-        if (auth()->hasUser()) {
-            $builder->whereNotIn('user_id', auth()->user()->blockedUsers->pluck('id')->toArray());
-        }
+        $builder->whereNotIn(
+            column: config(key: 'blockade.user_foreign_key'),
+            values: auth()->user()
+                ->blockedUsers
+                ->pluck('id')
+                ->toArray()
+        );
     }
 }

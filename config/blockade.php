@@ -7,6 +7,11 @@ return [
     'user_model' => 'App\Models\User',
 
     /**
+     * Specify the user model's foreign key.
+     */
+    'user_foreign_key' => 'user_id',
+
+    /**
      * Specify the table name for the blocks table.
      */
     'blocks_table' => 'blocks',

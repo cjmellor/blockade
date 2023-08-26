@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 trait CanBlock
 {
-    use ExcludeBlockedModels;
-
     protected static function bootCanBlock(): void
     {
         if (config(key: 'blockade.schedule_cleanup')) {
