@@ -5,19 +5,17 @@ use Cjmellor\Blockade\Events\UserUnblocked;
 use Cjmellor\Blockade\Exceptions\CannotBlockSelfException;
 use Cjmellor\Blockade\Exceptions\HasNotBlockedUserException;
 use Cjmellor\Blockade\Exceptions\UserAlreadyBlockedException;
-use Cjmellor\Blockade\Tests\TestModel;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Cjmellor\Blockade\Tests\Fixtures\User;
+use Illuminate\Support\Facades\Event;
 
 use function Spatie\PestPluginTestTime\testTime;
 
-uses(RefreshDatabase::class);
-
 beforeEach(closure: function (): void {
-    $this->modelOne = TestModel::create();
+    $this->modelOne = User::create();
 
-    $this->modelTwo = TestModel::create();
+    $this->modelTwo = User::create();
 
-    config()->set(key: 'blockade.user_model', value: TestModel::class);
+    config()->set(key: 'blockade.user_model', value: User::class);
 });
 
 test(description: 'a User can block another User', closure: function () {
@@ -84,9 +82,9 @@ it('removes the blocked user after the expiry has passed', closure: function () 
         'blocked_id' => $this->modelTwo->id,
     ]);
 
-    testTime()->addSeconds(value: 35);
+    testTime()->addSeconds(35);
 
-    TestModel::withWhereHas('blockedUsers', fn ($query) => $query->where('expires_at', '<', now()))
+    User::withWhereHas('blockedUsers', fn ($query) => $query->where('expires_at', '<', now()))
         ->get()
         ->each(fn ($user) => $user->blockedUsers()->detach());
 
@@ -106,7 +104,7 @@ test(description: 'the unblock:expired artisan command runs correctly', closure:
     $this->modelOne->block($this->modelTwo, expiresAt: now()->addSeconds(value: 30));
     expect($this->modelOne->blockedUsers)->toHaveCount(count: 1);
 
-    testTime()->addSeconds(value: 35);
+    testTime()->addSeconds(35);
 
     $this->artisan(command: 'unblock:expired')
         ->expectsOutputToContain(string: 'Unblocked expired users')

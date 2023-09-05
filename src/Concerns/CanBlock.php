@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 trait CanBlock
 {
-    use ExcludeBlockedModels;
-
     protected static function bootCanBlock(): void
     {
         if (config(key: 'blockade.schedule_cleanup')) {
@@ -43,7 +41,7 @@ trait CanBlock
         );
 
         throw_if(
-            condition: $this->modelInstance($user)->id === $this->id,
+            condition: $this->id === $this->modelInstance($user)->id,
             exception: CannotBlockSelfException::class,
         );
 

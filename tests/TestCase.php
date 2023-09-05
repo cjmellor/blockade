@@ -25,14 +25,14 @@ class TestCase extends Orchestra
         ];
     }
 
-    public function getEnvironmentSetUp($app)
+    public function getEnvironmentSetUp($app): void
     {
         config()->set('database.default', 'testing');
 
         $migration = include __DIR__.'/../database/migrations/create_blocks_table.php';
         $migration->up();
 
-        Schema::create('test_models', function ($table) {
+        Schema::create('users', function ($table) {
             $table->increments('id');
 
             $table->timestamps();

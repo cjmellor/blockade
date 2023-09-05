@@ -38,6 +38,11 @@ return [
      * If your User model different to the default, you can specify it here.
      */
     'user_model' => 'App\Models\User',
+    
+    /**
+     * Specify the user model's foreign key.
+     */
+    'user_foreign_key' => 'user_id',
 
     /**
      * Specify the table name for the blocks table.
@@ -64,9 +69,13 @@ return [
 
 ## Usage
 
-### Using the Trait
+### Using the Traits
 
-Add the `Blockable` trait to your User model.
+#### CanBlock
+
+Add the `CanBlock` trait to your User model.
+
+This trait should only ever be added to your User model.
 
 ```php
 use Cjmellor\Blockade\Concerns\CanBlock;
@@ -79,7 +88,26 @@ class User
 }
 ```
 
+#### HasBlocked
+
+Use this trait in your Models where you would not want a User to see the Model of a User they have blocked.
+
+> Example: you have a `Comment` Model and User 7 has blocked User 8 so User 7 should not be able to see any comments made by User 8.
+
+```php
+use Cjmellor\Blockade\Concerns\HasBlocked;
+
+class Comment
+{
+    use HasBlocked;
+    
+    // ...
+}
+```
+
 ### Block a User
+
+```php
 
 A User can block another User by supplying a User model, or just the ID of the User to be blocked.
 

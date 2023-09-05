@@ -1,13 +1,15 @@
 <?php
 
-namespace Cjmellor\Blockade\Tests;
+namespace Cjmellor\Blockade\Tests\Fixtures;
 
 use Cjmellor\Blockade\Concerns\CanBlock;
 use Illuminate\Database\Eloquent\Model;
 
-class TestModel extends Model
+class User extends Model
 {
     use CanBlock;
+
+    protected $table = 'users';
 
     protected $guarded = [];
 }
