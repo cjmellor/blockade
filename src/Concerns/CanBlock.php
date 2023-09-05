@@ -41,7 +41,7 @@ trait CanBlock
         );
 
         throw_if(
-            condition: $this->modelInstance($user)->id === $this->id,
+            condition: $this->id === $this->modelInstance($user)->id,
             exception: CannotBlockSelfException::class,
         );
 
