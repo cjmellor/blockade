@@ -5,15 +5,15 @@ use Cjmellor\Blockade\Events\UserUnblocked;
 use Cjmellor\Blockade\Exceptions\CannotBlockSelfException;
 use Cjmellor\Blockade\Exceptions\HasNotBlockedUserException;
 use Cjmellor\Blockade\Exceptions\UserAlreadyBlockedException;
-use Cjmellor\Blockade\Tests\Fixtures\User;
+use Cjmellor\Blockade\Tests\Fixtures\Models\User;
 use Illuminate\Support\Facades\Event;
 
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(closure: function (): void {
-    $this->modelOne = User::create();
+    $this->modelOne = User::factory()->createOne();
 
-    $this->modelTwo = User::create();
+    $this->modelTwo = User::factory()->createOne();
 
     config()->set(key: 'blockade.user_model', value: User::class);
 });
@@ -84,9 +84,9 @@ it('removes the blocked user after the expiry has passed', closure: function () 
 
     testTime()->addSeconds(35);
 
-    User::withWhereHas('blockedUsers', fn ($query) => $query->where('expires_at', '<', now()))
+    User::withWhereHas('blockedUsers', fn($query) => $query->where('expires_at', '<', now()))
         ->get()
-        ->each(fn ($user) => $user->blockedUsers()->detach());
+        ->each(fn($user) => $user->blockedUsers()->detach());
 
     expect($this->modelOne->blockedUsers()->get())->toHaveCount(count: 0);
 
@@ -118,7 +118,7 @@ test(description: 'An event is fired when a User is blocked', closure: function 
 
     $this->modelOne->block($this->modelTwo);
 
-    Event::assertDispatched(UserBlocked::class, fn (UserBlocked $event): bool => $event->blockedUser->id === $this->modelTwo->id);
+    Event::assertDispatched(UserBlocked::class, fn(UserBlocked $event): bool => $event->blockedUser->id === $this->modelTwo->id);
 });
 
 test(description: 'An event is fired when a User is unblocked', closure: function () {
@@ -127,5 +127,5 @@ test(description: 'An event is fired when a User is unblocked', closure: functio
     $this->modelOne->block($this->modelTwo);
     $this->modelOne->unblock($this->modelTwo);
 
-    Event::assertDispatched(UserUnblocked::class, fn (UserUnblocked $event): bool => $event->user->id === $this->modelTwo->id);
+    Event::assertDispatched(UserUnblocked::class, fn(UserUnblocked $event): bool => $event->user->id === $this->modelTwo->id);
 });

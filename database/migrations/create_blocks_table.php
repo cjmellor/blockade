@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         Schema::create(config('blockade.blocks_table', 'blocks'), function (Blueprint $table) {
             $table->foreignId(config('blockade.blocker_foreign_key', 'blocker_id'))
@@ -19,7 +19,7 @@ return new class extends Migration
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists(config(key: 'blockade.blocks_table', default: 'blocks'));
     }
