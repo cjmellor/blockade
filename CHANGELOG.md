@@ -2,6 +2,17 @@
 
 All notable changes to `blockade` will be documented in this file.
 
+## v1.2.0 - 2024-03-25
+
+### What's Changed
+
+* build(deps): bump actions/checkout from 3 to 4 by @dependabot in https://github.com/cjmellor/blockade/pull/11
+* build(deps): bump stefanzweifel/git-auto-commit-action from 4 to 5 by @dependabot in https://github.com/cjmellor/blockade/pull/12
+* build(deps): bump aglipanci/laravel-pint-action from 2.3.0 to 2.3.1 by @dependabot in https://github.com/cjmellor/blockade/pull/13
+* Laravel 11.x Compatibility by @cjmellor in https://github.com/cjmellor/blockade/pull/14
+
+**Full Changelog**: https://github.com/cjmellor/blockade/compare/v1.1.2...v1.2.0
+
 ## v1.1.2 - 2023-09-05
 
 ### What's Changed
