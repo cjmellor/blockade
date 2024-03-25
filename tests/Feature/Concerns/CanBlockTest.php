@@ -5,15 +5,15 @@ use Cjmellor\Blockade\Events\UserUnblocked;
 use Cjmellor\Blockade\Exceptions\CannotBlockSelfException;
 use Cjmellor\Blockade\Exceptions\HasNotBlockedUserException;
 use Cjmellor\Blockade\Exceptions\UserAlreadyBlockedException;
-use Cjmellor\Blockade\Tests\Fixtures\User;
+use Cjmellor\Blockade\Tests\Fixtures\Models\User;
 use Illuminate\Support\Facades\Event;
 
 use function Spatie\PestPluginTestTime\testTime;
 
 beforeEach(closure: function (): void {
-    $this->modelOne = User::create();
+    $this->modelOne = User::factory()->createOne();
 
-    $this->modelTwo = User::create();
+    $this->modelTwo = User::factory()->createOne();
 
     config()->set(key: 'blockade.user_model', value: User::class);
 });

@@ -3,22 +3,39 @@
 namespace Cjmellor\Blockade;
 
 use Cjmellor\Blockade\Console\Commands\UnblockUserCommand;
-use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
-class BlockadeServiceProvider extends PackageServiceProvider
+class BlockadeServiceProvider extends ServiceProvider
 {
-    public function configurePackage(Package $package): void
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
-        $package
-            ->name('blockade')
-            ->hasCommand(UnblockUserCommand::class)
-            ->hasConfigFile()
-            ->hasMigration('create_blocks_table');
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                UnblockUserCommand::class,
+            ]);
+        }
+
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        $this->publishes([
+            __DIR__.'/../config/blockade.php' => config_path('blockade.php'),
+        ], groups: 'blockade-config');
+
+        $this->publishes([
+            __DIR__.'/../database/migrations' => database_path('migrations'),
+        ], groups: 'blockade-migrations');
+    }
+
+    /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/blockade.php', 'blockade'
+        );
     }
 }

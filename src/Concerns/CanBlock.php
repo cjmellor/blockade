@@ -33,7 +33,7 @@ trait CanBlock
         )->withPivot(columns: 'expires_at');
     }
 
-    public function block(Model|int $user, Carbon $expiresAt = null): bool
+    public function block(Model|int $user, ?Carbon $expiresAt = null): bool
     {
         throw_if(
             condition: $this->blockedUsers()->whereId($this->modelInstance($user)->id)->exists(),
