@@ -9,7 +9,7 @@ trait HasBlocked
     protected static function bootHasBlocked(): void
     {
         if (auth()->hasUser()) {
-            static::addGlobalScope(scope: new ExcludeBlockedModelsScope());
+            static::addGlobalScope(scope: new ExcludeBlockedModelsScope);
         }
     }
 }
