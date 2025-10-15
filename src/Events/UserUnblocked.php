@@ -6,6 +6,5 @@ class UserUnblocked
 {
     public function __construct(
         public $user,
-    ) {
-    }
+    ) {}
 }

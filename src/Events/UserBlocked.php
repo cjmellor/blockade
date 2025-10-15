@@ -6,6 +6,5 @@ class UserBlocked
 {
     public function __construct(
         public $blockedUser,
-    ) {
-    }
+    ) {}
 }
