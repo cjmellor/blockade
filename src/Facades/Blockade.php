@@ -2,6 +2,7 @@
 
 namespace Cjmellor\Blockade\Facades;
 
+use Cjmellor\Blockade\Models\Block;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -11,6 +12,6 @@ class Blockade extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \Cjmellor\Blockade\Models\Block::class;
+        return Block::class;
     }
 }
